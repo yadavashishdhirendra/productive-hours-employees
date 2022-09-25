@@ -1,0 +1,69 @@
+.header-notify {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-client>button {
+  background-color: #423f8d !important;
+  font-family: 'Poppins', 'sans-serif';
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.create-client {
+  padding: 20px 20px 20px 20px;
+}
+
+.create-para>h2 {
+  font-family: 'Poppins', 'sans-serif';
+  font-weight: bold;
+}
+
+.create-para {
+  display: flex;
+  align-items: center;
+}
+
+.create-client .create-para h2 {
+  font-size: 30px !important;
+  letter-spacing: 0.03em;
+  line-height: 1.2195;
+  font-family: 'Poppins', 'sans-serif' !important;
+  font-weight: bold !important;
+}
+
+.create-client .create-para h2 span {
+  vertical-align: baseline;
+}
+
+#demo-select-small {
+  font-family: 'Poppins', 'sans-serif' !important;
+  font-weight: 800 !important;
+  font-size: 15px !important;
+  top: 5px;
+}
+
+.submit-button {
+  background-color: #423f8d !important;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: #423f8d !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #423f8d !important;
+}
+
+.user-icon {
+  width: 30px;
+  height: 30px;
+  background-color: #c7c7c7c7;
+  border-radius: 50%;
+}
+
+.user-task-row {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,29 @@
+.Create-data {
+  padding: 30px;
+  margin: auto;
+}
+
+.css-1e2bxag-MuiDataGrid-root .MuiDataGrid-columnHeader:focus,
+.css-1e2bxag-MuiDataGrid-root .MuiDataGrid-cell:focus {
+  outline: transparent !important;
+}
+
+.button-div button {
+  background-color: #423f8d !important;
+  color: #fff !important;
+  margin: 0px 10px 0px 0px;
+}
+
+.css-levciy-MuiTablePagination-displayedRows {
+  font-family: 'Poppins', 'sans-serif' !important;
+  font-weight: 600 !important;
+}
+
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
