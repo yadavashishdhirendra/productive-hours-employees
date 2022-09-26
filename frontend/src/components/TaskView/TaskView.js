@@ -48,6 +48,7 @@ const TaskView = () => {
   );
   const { message: linkmessage, error: linkerror, loading: linkLoading } = useSelector((state) => state.link)
   const { task, error } = useSelector((state) => state.singletask);
+  const { message: send } = useSelector((state) => state.hour)
   const { users } = useSelector((state) => state.taskusers);
   const { starttime } = useSelector((state) => state.gethours);
   const { endtime } = useSelector((state) => state.productivehoursend);
@@ -111,11 +112,16 @@ const TaskView = () => {
     dispatch(getSingleTask(id));
   };
 
+  const [buttonhide, setButtonHide] = useState(false)
+  const [secondButtonhide, setSecondButtonhide] = useState(true)
+
   const sendStartTime = async (e) => {
     e.preventDefault();
     let starttime = moment().format("DD/MM/YYYY HH:mm:ss")
     await dispatch(updateProductiveHourTask(id, starttime));
     dispatch(getHours(id));
+    setButtonHide(true)
+    setSecondButtonhide(false)
   };
 
   useEffect(() => {
@@ -214,9 +220,12 @@ const TaskView = () => {
 
   const sendEndTime = async (e) => {
     e.preventDefault();
+    setHide(true)
     let endtime = moment().format("DD/MM/YYYY HH:mm:ss")
     await dispatch(updateProductiveHourTasks(id, endtime));
     dispatch(getHoursend(id));
+    setButtonHide(false)
+    setSecondButtonhide(false)
   };
 
   useEffect(() => {
@@ -256,14 +265,17 @@ const TaskView = () => {
     id,
   ]);
 
+  const [hide, setHide] = useState(false)
+
   const sendProductive = () => {
     dispatch(addHour(id, hour))
     dispatch(addMinute(id, minute))
     dispatch(addSeconds(id, seconds))
-    setHour(0)
-    setMinute(0)
-    setSeconds(0)
+    setHide(false)
+    setSecondButtonhide(true)
   }
+
+
 
   useEffect(() => {
     if (updateProduct) {
@@ -285,7 +297,12 @@ const TaskView = () => {
         type: "clearErrors"
       })
     }
-  }, [dispatch, updateProduct, alert, id, linkmessage, linkerror])
+    if (send) {
+      setHour(0)
+      setMinute(0)
+      setSeconds(0)
+    }
+  }, [dispatch, updateProduct, alert, id, linkmessage, linkerror, send])
 
 
   console.log("USERS", users);
@@ -456,22 +473,26 @@ const TaskView = () => {
               <div className="button-spacearound">
                 {task.status === "In Progress" || task.status === 'Extension' ? (
                   <>
-                    <Button
-                      onClick={(e) => sendStartTime(e)}
-                      type="submit"
-                      variant="contained"
-                    // disabled={hourloading || loadloading ? true : false}
-                    >
-                      Start
-                    </Button>
-                    <Button
-                      onClick={(e) => sendEndTime(e)}
-                      type="submit"
+                    {
+                      secondButtonhide ? <Button
+                        onClick={(e) => sendStartTime(e)}
+                        type="submit"
+                        variant="contained"
                       // disabled={hourloading || loadloading ? true : false}
-                      variant="contained"
-                    >
-                      Stop
-                    </Button>
+                      >
+                        Start
+                      </Button> : null
+                    }
+                    {
+                      buttonhide ? <Button
+                        onClick={(e) => sendEndTime(e)}
+                        type="submit"
+                        // disabled={hourloading || loadloading ? true : false}
+                        variant="contained"
+                      >
+                        Stop
+                      </Button> : null
+                    }
                   </>
                 ) : null}
               </div>
@@ -517,9 +538,11 @@ const TaskView = () => {
                     : null}
                 </div>
               </div>
-              <div className="btn">
-                <Button type="submit" variant="contained" onClick={sendProductive}>Send Productive Time</Button>
-              </div>
+              {
+                hide ? <div className="btn">
+                  <Button type="submit" variant="contained" onClick={sendProductive}>Send Productive Time</Button>
+                </div> : null
+              }
               <h4 className="productive-hours">{TaskHour} Hour {TaskMinutes} Minutes {TaskSeconds} Seconds</h4>
             </div>
           </div>

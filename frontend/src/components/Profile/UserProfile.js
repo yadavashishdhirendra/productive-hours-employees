@@ -158,7 +158,7 @@ const UserProfile = () => {
                 style={{ fontFamily: "'Poppins', 'sans-serif'",fontWeight:600, fontSize: "18px" }}
                 rows={rows}
                 columns={columns}
-                pageSize={10}
+                pageSize={5}
                 rowsPerPageOptions={[5]}
                 autoHeight
                 sortingOrder="null"

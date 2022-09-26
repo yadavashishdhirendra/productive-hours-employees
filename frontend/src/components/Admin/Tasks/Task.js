@@ -169,7 +169,7 @@ const Task = () => {
                                 style={{ fontFamily: "'Poppins', 'sans-serif'", fontSize: "18px" }}
                                 rows={rows}
                                 columns={columns}
-                                pageSize={10}
+                                pageSize={5}
                                 rowsPerPageOptions={[5]}
                                 autoHeight
                                 sortingOrder="null"
