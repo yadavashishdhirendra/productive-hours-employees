@@ -112,16 +112,16 @@ const TaskView = () => {
     dispatch(getSingleTask(id));
   };
 
-  const [buttonhide, setButtonHide] = useState(false)
-  const [secondButtonhide, setSecondButtonhide] = useState(true)
+  // const [buttonhide, setButtonHide] = useState()
+  // const [secondButtonhide, setSecondButtonhide] = useState(true)
 
   const sendStartTime = async (e) => {
     e.preventDefault();
     let starttime = moment().format("DD/MM/YYYY HH:mm:ss")
     await dispatch(updateProductiveHourTask(id, starttime));
     dispatch(getHours(id));
-    setButtonHide(true)
-    setSecondButtonhide(false)
+    // setButtonHide(true)
+    // setSecondButtonhide(false)
   };
 
   useEffect(() => {
@@ -224,8 +224,8 @@ const TaskView = () => {
     let endtime = moment().format("DD/MM/YYYY HH:mm:ss")
     await dispatch(updateProductiveHourTasks(id, endtime));
     dispatch(getHoursend(id));
-    setButtonHide(false)
-    setSecondButtonhide(false)
+    // setButtonHide(false)
+    // setSecondButtonhide(false)
   };
 
   useEffect(() => {
@@ -272,7 +272,7 @@ const TaskView = () => {
     dispatch(addMinute(id, minute))
     dispatch(addSeconds(id, seconds))
     setHide(false)
-    setSecondButtonhide(true)
+    // setSecondButtonhide(true)
   }
 
 
@@ -305,7 +305,7 @@ const TaskView = () => {
   }, [dispatch, updateProduct, alert, id, linkmessage, linkerror, send])
 
 
-  console.log("USERS", users);
+  // console.log("USERS", buttonhide);
 
 
 
@@ -473,26 +473,22 @@ const TaskView = () => {
               <div className="button-spacearound">
                 {task.status === "In Progress" || task.status === 'Extension' ? (
                   <>
-                    {
-                      secondButtonhide ? <Button
-                        onClick={(e) => sendStartTime(e)}
-                        type="submit"
-                        variant="contained"
+                    <Button
+                      onClick={(e) => sendStartTime(e)}
+                      type="submit"
+                      variant="contained"
+                    // disabled={hourloading || loadloading ? true : false}
+                    >
+                      Start
+                    </Button>
+                    <Button
+                      onClick={(e) => sendEndTime(e)}
+                      type="submit"
                       // disabled={hourloading || loadloading ? true : false}
-                      >
-                        Start
-                      </Button> : null
-                    }
-                    {
-                      buttonhide ? <Button
-                        onClick={(e) => sendEndTime(e)}
-                        type="submit"
-                        // disabled={hourloading || loadloading ? true : false}
-                        variant="contained"
-                      >
-                        Stop
-                      </Button> : null
-                    }
+                      variant="contained"
+                    >
+                      Stop
+                    </Button>
                   </>
                 ) : null}
               </div>
