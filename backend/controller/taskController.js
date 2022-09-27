@@ -364,7 +364,8 @@ exports.updateTask = async (req, res) => {
       startdate: req.body.startdate,
       enddate: req.body.enddate,
       email: req.body.email,
-      reporter: req.body.reporter
+      reporter: req.body.reporter,
+      status: req.body.status
     }
 
     const update = await Task.findByIdAndUpdate(req.params.id, taskupdate, {

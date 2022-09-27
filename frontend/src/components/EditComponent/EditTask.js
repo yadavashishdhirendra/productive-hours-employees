@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getSingleTask, updateTaskAll } from '../../Actions/taskActions';
-import { getAllUsers } from '../../Actions/userActions';
+import { getAllUsers, loadUser } from '../../Actions/userActions';
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -20,6 +20,7 @@ const EditTask = () => {
     const navigate = useNavigate();
     const alert = useAlert();
     const { id } = useParams()
+    const { user } = useSelector((state) => state.Authentication)
     const {
         users,
         error: userserror,
@@ -46,10 +47,11 @@ const EditTask = () => {
     const [priority, setPriority] = useState("");
     const [email, setEmail] = useState("");
     const [reporter, setReporter] = useState("");
+    const [status, setStatus] = useState("")
 
     const handleTaskUpdate = (e) => {
         e.preventDefault();
-        dispatch(updateTaskAll(id, taskname, priority, email, reporter, startdate, enddate))
+        dispatch(updateTaskAll(id, taskname, priority, email, reporter, startdate, enddate, status))
     }
 
     useEffect(() => {
@@ -77,8 +79,10 @@ const EditTask = () => {
             setReporter(task.reporter)
             setStartDate(task.startdate)
             setEndDate(task.enddate)
+            setStatus(task.status)
         }
-    }, [task])
+        dispatch(loadUser())
+    }, [task, dispatch])
 
     console.log(task, id)
     return (
@@ -210,6 +214,25 @@ const EditTask = () => {
                                     : null}
                             </Select>
                         </FormControl>
+                        {
+                            user && user.userRole === 'Admin' ? <FormControl sx={{ mb: 3, minWidth: 300 }} size="small">
+                                <InputLabel
+                                    id="demo-select-small"
+                                    style={{ fontFamily: "'Poppins', 'sans-serif'", fontWeight: 600, fontSize: 18 }}
+                                >
+                                    Status
+                                </InputLabel>
+                                <Select
+                                    labelId="demo-select-small"
+                                    id="demo-select-small"
+                                    label="Client Type"
+                                    value={status}
+                                    onChange={(e) => setStatus(e.target.value)}
+                                >
+                                    <MenuItem value="Extension">Extension</MenuItem>
+                                </Select>
+                            </FormControl> : null
+                        }
                         <Button
                             className="submit-button"
                             type="submit"

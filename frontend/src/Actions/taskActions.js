@@ -278,13 +278,13 @@ export const getAllTaskSpecificAccount = (id) => async (dispatch) => {
   }
 };
 
-export const updateTaskAll = (id, taskname, priority, email, reporter, startdate, enddate) => async (dispatch) => {
+export const updateTaskAll = (id, taskname, priority, email, reporter, startdate, enddate,status) => async (dispatch) => {
   try {
     dispatch({
       type: "updateTaskRequest",
     });
     const { data } = await axios.put(`/api/v2/update/task/${id}`, {
-      taskname, priority, email, reporter, startdate, enddate
+      taskname, priority, email, reporter, startdate, enddate,status
     });
     dispatch({
       type: "updateTaskSuccess",
